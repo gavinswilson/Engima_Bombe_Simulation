@@ -65,7 +65,7 @@ class Message:
         self.indicator_setting_enc = self.fullciphertext[:6]
 
     def split_ciphertext(self):
-        # Split the full ciphertext into groups of 5 letters
+        # Split the full ciphertext into groups of 5 letters for viewing
         self.split_ciphertext = ' '.join(self.fullciphertext[i:i+5] for i in range(0, len(self.fullciphertext), 5))
     
     def check_number_of_letters(self):
@@ -74,13 +74,20 @@ class Message:
         else:            
             print(f"Warning: Number of letters specified ({self.number_of_letters}) does not match actual number of letters in full ciphertext ({len(self.fullciphertext)}).")
             return False
-
+    def setup_enigma_machine(self):
+        # Set up the Enigma machine with the daily settings
+        self.enigma = EnigmaMachine.from_key_sheet(
+            rotors=self.rotors,
+            reflector=self.reflector,
+            ring_settings=self.ringsettings,
+            plugboard_settings=self.plugboardsettings
+        )
     #---------------------------------------------------------------------------------------------------------------------------------
     # test-set-up for verification
     #---------------------------------------------------------------------------------------------------------------------------------
 
 
-    def testsetup_bletchley(self):
+    def testsetup_bletchley_decrypt(self):
         #message settings
         self.set_date('1941-02-01')
         
@@ -102,12 +109,7 @@ class Message:
         self.set_ringsettings('1 1 1')
         self.set_plugboardsettings('bq cr di ej kw mt os px uz gh')
         self.set_rotorposition(self.indicator_setting)
-        self.enigma=EnigmaMachine.from_key_sheet(
-                    rotors=self.rotors, 
-                    reflector=self.reflector, 
-                    plugboard_settings=self.plugboardsettings, 
-                    ring_settings=self.ringsettings)
-
+        self.setup_enigma_machine()
 
 
 
