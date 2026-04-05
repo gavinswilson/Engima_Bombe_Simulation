@@ -59,7 +59,7 @@ class Message:
     
     def split_ciphertext_parts(self):
         """
-        Splits the full ciphertext into its component parts, In german war code, the first 6 letters of the full ciphertext are the encrypted indicator setting, and the rest is the actual ciphertext.
+        Splits the full ciphertext into its component parts, In german wartime code, the first 6 letters of the full ciphertext are the encrypted indicator setting, and the rest is the actual ciphertext.
         """
         self.ciphertext = self.fullciphertext[6:]
         self.indicator_setting_enc = self.fullciphertext[:6]
